@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/stock/v1" name="stock-management-system-v1-api" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" url-mapping="/list">
+        <inSequence>
+            <log>
+                <property name="list-api" value="list invoking"/>
+            </log>
+            <sequence key="stock-management-system-v1-get-stock-sequence"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence>
+            <sequence key="stock-management-system-v1-api-error-sequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="POST" url-mapping="/add">
+        <inSequence>
+            <log>
+                <property name="add-api" value="Add invoking"/>
+            </log>
+            <sequence key="stock-management-system-v1-add-stock-sequence"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence>
+            <sequence key="stock-management-system-v1-api-error-sequence"/>
+        </faultSequence>
+    </resource>
+    <resource methods="PUT" url-mapping="/update">
+        <inSequence>
+            <log>
+                <property name="update-api" value="Update invoking"/>
+            </log>
+            <sequence key="stock-management-system-v1-update-stock-sequence"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence>
+            <sequence key="stock-management-system-v1-api-error-sequence"/>
+        </faultSequence>
+    </resource>
+</api>

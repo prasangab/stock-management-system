@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<project name="apiBuild" default="deployMDS">
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+    <classpath>
+    <pathelement location="/home/prabod/ant-contrib-0.6.jar"/>
+    </classpath>
+    </taskdef>
+    <property environment="env"/>
+    <tstamp><format property="project.start" pattern="yyyy-MM-dd HH:mm:ss" locale="en,UK"/></tstamp>
+
+    <target name="processProjectList" if="project_list">
+        <for list="${project_list}" delimiter="," param="value">
+              <sequential>
+                  <echo level="info" message="Processing @{value}"/>
+                  <if>
+                    <matches string="@{value}" pattern="^:AllProjects$" />
+                    <then>
+                        <antcall target="customiseForEnvironment">
+                            <param name="project" value="*"/>
+                        </antcall>
+                    </then>
+                    <else>
+                        <antcall target="customiseForEnvironment">
+                            <param name="project" value="@{value}"/>
+                        </antcall>
+                    </else>
+                  </if>
+              </sequential>
+        </for>
+    </target>
+    <fail message="A project list needs to be specified" unless="project_list"/>
+
+    <target name="customiseForEnvironment">
+        <echo level="info">basedir ${basedir}</echo>
+        <echo level="info">deploying API definition: ${project}/swagger/*.json</echo>
+        <property name="fileTypes" value="json"/>
+        <foreach target="loopFiles" param="fileType" list="${fileTypes}" trim="true" inheritall="true">
+            <param name="project" value="${project}"/>
+        </foreach>
+        <tstamp><format property="customiseForEnvironment.finish" pattern="yyyy-MM-dd HH:mm:ss" locale="en,UK"/></tstamp>
+        <echo level="info">Ant customiseForEnvironment started at: ${project.start}</echo>
+        <echo level="info">Ant customiseForEnvironment completed at: ${customiseForEnvironment.finish}</echo>
+    </target>
+
+   <target name="loopFiles">
+     <echo level="info">Processing project: ${project}: FileType (${fileType})</echo>
+
+     <foreach target="doURISubstitutions" param="fileName" trim="true" inheritall="true">
+       <path id="apiFileList.ref">
+          <fileset dir="${basedir}/../" casesensitive="yes">
+            <include name="${project}/swagger/*.${fileType}"/>
+          </fileset>
+       </path>
+     </foreach>
+   </target>
+
+    <target name="doURISubstitutions">
+      <echo level="info">Processing: FileType (${fileType}) FileName (${fileName})</echo>
+      <property name="apiName" value="unDefined" />
+      <property name="apiVersion" value="0.0" />
+      <property name="apiRole" value="" />
+      <property name="apiUsername" value="" />
+      <property name="apiPassword" value="" />
+      <property name="eiBasePath" value="/" />
+      <property name="endPointSecurity" value="nonsecured" />
+      <property name="securityType" value="" />
+      <property name="securityUsername" value="" />
+      <property name="securityPassword" value="" />
+      <property name="endpoint" value="" />
+      <property name="backendUrl" value="" />
+
+      <echo level="info">Processing: Source (${source.api.hostname}:${source.api.port}) Target (${target.api.hostname}:${target.api.port})</echo>
+
+      <loadfile property="jsonFile" srcFile="${fileName}" />
+
+      <script language="javascript">
+          //<![CDATA[
+          echo = project.createTask("echo");
+
+          // NOTE: This overrides the hostname variable for local deployments!
+          if ((project.getProperty("IPAddress") != null) && (project.getProperty("IPAddress") != "")) {
+              project.setProperty("target.api.hostname", project.getProperty("IPAddress"));
+          }
+
+          var jsonString = project.getProperty("jsonFile");
+          var jsonStruct = eval("(" + jsonString + ")");
+          project.setProperty("apiName", jsonStruct.info.title);
+          project.setProperty("apiVersion", jsonStruct.info.version);
+          project.setProperty("eiBasePath", jsonStruct.basePath);
+
+          if (jsonStruct.hasOwnProperty("X-wso2-endpoint-security")) {
+
+              project.setProperty("securityType", jsonStruct["X-wso2-endpoint-security"].type);
+          }
+
+          if (jsonStruct.hasOwnProperty("X-wso2-user")) {
+              project.setProperty("apiRole", jsonStruct["X-wso2-user"].role);
+              project.setProperty("apiUsername", jsonStruct["X-wso2-user"].username);
+              project.setProperty("apiPassword", jsonStruct["X-wso2-user"].password);
+          }
+          //]]>
+      </script>
+      <echo level="info">FileName (${fileName}) apiName (${apiName}) apiVersion (${apiVersion}) apiRole (${apiRole}) backendUrl (${backendUrl}) apiUsername (${apiUsername}) apiPassword (${apiPassword}) eiBasePath (${eiBasePath}) endPointSecurity (${endPointSecurity}) securityType (${securityType}) securityUsername (${securityUsername}) securityPassword (${securityPassword}) endpoint (${endpoint})</echo>
+      <exec executable="/bin/bash" failonerror="true" vmlauncher="false">
+          <!-- Create the API -->
+          <env key="fileName" value="${fileName}"/>
+          <env key="apiName" value="${apiName}"/>
+          <env key="apiVersion" value="${apiVersion}"/>
+          <env key="apiRole" value="${apiRole}"/>
+          <env key="apiUsername" value="${apiUsername}"/>
+        <!--
+            <env key="apiPassword" value="${apiPassword}"/>
+            <env key="backendUrl" value="${backendUrl}"/>
+            <env key="securityUsername" value="${securityUsername}"/>
+            <env key="securityPassword" value="${securityPassword}"/>
+        -->
+          <env key="eiBasePath" value="${eiBasePath}"/>
+          <env key="endPointSecurity" value="${endPointSecurity}"/>
+          <env key="securityType" value="${securityType}"/>
+          
+          
+          <env key="endpoint" value="${endpoint}"/>
+          
+          <arg value="-c"/>
+          <arg value="${basedir}/deployAPI.sh"/>
+      </exec>
+   </target>
+
+</project>

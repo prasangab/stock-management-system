@@ -1,0 +1,27 @@
+<soapenv:Envelope
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://org.apache.axis2/xsd"
+    xmlns:xsd1="http://services.core.ndatasource.carbon.wso2.org/xsd"
+    xmlns:xsd2="http://core.ndatasource.carbon.wso2.org/xsd">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <xsd:addDataSource>
+            <xsd:dsmInfo>
+                <xsd1:definition>
+                    <xsd1:dsXMLConfiguration><![CDATA[<configuration><url>jdbc:mysql://localhost:3306/stock_management</url><username>root</username><password encrypted="true">Psnpt.1991</password><driverClassName>com.mysql.jdbc.Driver</driverClassName><testOnBorrow>true</testOnBorrow>
+                                <validationQuery>SELECT 1</validationQuery>
+                                <validationInterval>5000</validationInterval>
+                                <removeAbandoned>true</removeAbandoned></configuration>]]></xsd1:dsXMLConfiguration>
+                    <xsd1:type>RDBMS</xsd1:type>
+                </xsd1:definition>
+                <xsd1:description>auto deployed</xsd1:description>
+                <xsd1:jndiConfig>
+                    <xsd2:name>jdbc/stock-management-system-datasource</xsd2:name>
+                    <xsd2:useDataSourceFactory>false</xsd2:useDataSourceFactory>
+                </xsd1:jndiConfig>
+                <xsd1:name>stock-management-system-datasource</xsd1:name>
+                <xsd1:system>false</xsd1:system>
+            </xsd:dsmInfo>
+        </xsd:addDataSource>
+    </soapenv:Body>
+</soapenv:Envelope>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="stock-management-system-v1-dataservice" groupId="com.prasanga.stock-management-system.dataservice" version="1.0.0" type="service/dataservice" serverRole="DataServicesServer">
+        <file>dataservice/stock-management-system-v1-dataservice.dbs</file>
+    </artifact>
+</artifacts>

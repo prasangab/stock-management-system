@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="stock-management-system-v1-dss-endpoint" groupId="com.prasanga.stock-management-system.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>endpoints/stock-management-system-v1-dss-endpoint.xml</file>
+            <path>/_system/config/endpoints</path>
+            <mediaType>application/vnd.wso2.esb.endpoint</mediaType>
+        </item>
+    </artifact>
+    <artifact name="stock-management-system-v1-get-stock-response-payload" groupId="com.prasanga.stock-management-system.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>xslt/stock-management-system-v1-get-stock-response-payload.xslt</file>
+            <path>/_system/config/xslt</path>
+            <mediaType>application/xslt+xml</mediaType>
+        </item>
+    </artifact>
+    <artifact name="stock-management-system-v1-set-stock-schema" groupId="com.prasanga.stock-management-system.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>schema/stock-management-system-v1-set-stock-schema.json</file>
+            <path>/_system/config/schema</path>
+            <mediaType>application/json</mediaType>
+        </item>
+    </artifact>
+    <artifact name="stock-management-system-v1-update-stock-schema" groupId="com.prasanga.stock-management-system.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>schema/stock-management-system-v1-update-stock-schema.json</file>
+            <path>/_system/config/schema</path>
+            <mediaType>application/json</mediaType>
+        </item>
+    </artifact>
+    <artifact name="stock-management-system-v1-set-stock-payload" groupId="com.prasanga.stock-management-system.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>xslt/stock-management-system-v1-set-stock-payload.xslt</file>
+            <path>/_system/config/xslt</path>
+            <mediaType>application/xslt+xml</mediaType>
+        </item>
+    </artifact>
+    <artifact name="stock-management-system-v1-update-stock-payload" groupId="com.prasanga.stock-management-system.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>xslt/stock-management-system-v1-update-stock-payload.xslt</file>
+            <path>/_system/config/xslt</path>
+            <mediaType>application/xslt+xml</mediaType>
+        </item>
+    </artifact>
+    <artifact name="smooks-config" groupId="com.prasanga.stock-management-system.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>configs/smooks-config.xml</file>
+            <path>/_system/config/smooks</path>
+            <mediaType>application/vnd+wso2.smooks</mediaType>
+        </item>
+    </artifact>
+    <artifact name="stock-management-system-v1-update-file-content" groupId="com.prasanga.stock-management-system.resource" version="1.0.0" type="registry/resource" serverRole="EnterpriseServiceBus">
+        <item>
+            <file>xslt/stock-management-system-v1-update-file-content.xslt</file>
+            <path>/_system/config/xslt</path>
+            <mediaType>application/xslt+xml</mediaType>
+        </item>
+    </artifact>
+</artifacts>

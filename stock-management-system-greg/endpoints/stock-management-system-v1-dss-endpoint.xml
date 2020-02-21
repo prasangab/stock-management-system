@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoint name="stock-management.dss.endpoint" xmlns="http://ws.apache.org/ns/synapse">
+    <address format="soap12" uri="http://172.18.0.1:9765/services/stock-management-system-v1-dataservice.SOAP12Endpoint"/>
+</endpoint>

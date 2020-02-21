@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="stock-management-system-v1-api" groupId="com.prasanga.stock-management-system.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/stock-management-system-v1-api.xml</file>
+    </artifact>
+    <artifact name="stock-management-system-v1-fault-sequence" groupId="com.prasanga.stock-management-system.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/stock-management-system-v1-fault-sequence.xml</file>
+    </artifact>
+    <artifact name="stock-management-system-v1-get-stock-sequence" groupId="com.prasanga.stock-management-system.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/stock-management-system-v1-get-stock-sequence.xml</file>
+    </artifact>
+    <artifact name="stock-management-system-v1-add-stock-sequence" groupId="com.prasanga.stock-management-system.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/stock-management-system-v1-add-stock-sequence.xml</file>
+    </artifact>
+    <artifact name="stock-management-system-v1-update-stock-sequence" groupId="com.prasanga.stock-management-system.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/stock-management-system-v1-update-stock-sequence.xml</file>
+    </artifact>
+    <artifact name="stock-management-system-v1-call-dss-service-sequence" groupId="com.prasanga.stock-management-system.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/stock-management-system-v1-call-dss-service-sequence.xml</file>
+    </artifact>
+    <artifact name="stock-management-system-v1-api-error-sequence" groupId="com.prasanga.stock-management-system.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/stock-management-system-v1-api-error-sequence.xml</file>
+    </artifact>
+    <artifact name="stock-management-system-v1-file-processing-proxy" groupId="com.prasanga.stock-management-system.proxy-service" version="1.0.0" type="synapse/proxy-service" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/proxy-services/stock-management-system-v1-file-processing-proxy.xml</file>
+    </artifact>
+    <artifact name="stock-management-system-v1-file-processing-sequence" groupId="com.prasanga.stock-management-system.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/stock-management-system-v1-file-processing-sequence.xml</file>
+    </artifact>
+</artifacts>

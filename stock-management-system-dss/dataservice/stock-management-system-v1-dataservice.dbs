@@ -1,0 +1,55 @@
+<data name="stock-management-system-v1-dataservice" serviceGroup="" serviceNamespace="">
+    <description>stock management database service</description>
+    <config id="stock-management-system-v1-mysql-datasource">
+        <property name="carbon_datasource_name">stock-management-system-datasource</property>
+    </config>
+    <query id="setStock" useConfig="stock-management-system-v1-mysql-datasource">
+        <sql>call insert_stock(:product_id, :product_name, :stock_level, :location)</sql>
+        <param name="product_id" paramType="SCALAR" sqlType="STRING" type="IN"/>
+        <param defaultValue="#{NULL}" name="product_name" paramType="SCALAR" sqlType="STRING" type="IN"/>
+        <param name="stock_level" paramType="SCALAR" sqlType="STRING" type="IN"/>
+        <param name="location" paramType="SCALAR" sqlType="STRING" type="IN"/>
+        <result element="response" rowName="message">
+            <element column="is_success" name="success" exportType="SCALAR" xsdType="xs:string"/>
+        </result>
+    </query>
+    <query id="updateStock" useConfig="stock-management-system-v1-mysql-datasource">
+        <sql>call change_stock(:product_id, :change, :location)</sql>
+        <param name="product_id" paramType="SCALAR" sqlType="STRING" type="IN"/>
+        <param name="change" paramType="SCALAR" sqlType="INTEGER" type="IN"/>
+        <param name="location" paramType="SCALAR" sqlType="STRING" type="IN"/>
+        <result element="response" rowName="message">
+            <element column="is_success" name="success" exportType="SCALAR" xsdType="xs:string"/>
+        </result>
+    </query>
+    <query id="getStock" useConfig="stock-management-system-v1-mysql-datasource">
+        <sql>call get_stock(:product_ids)</sql>
+        <param defaultValue="#{NULL}" name="product_ids" paramType="SCALAR" sqlType="STRING" type="IN"/>
+        <result element="response" rowName="message">
+            <element column="product_id" name="product_id" exportType="SCALAR" xsdType="xs:string"/>
+            <element column="product_name" name="product_name" exportType="SCALAR" xsdType="xs:string"/>
+            <element column="stock_level" name="stock_level" exportType="SCALAR" xsdType="xs:string"/>
+            <element column="location" name="location" exportType="SCALAR" xsdType="xs:string"/>
+        </result>
+    </query>
+    <resource method="POST" path="/set">
+        <call-query href="setStock">
+            <with-param name="product_id" query-param="product_id"/>
+            <with-param name="product_name" query-param="product_name"/>
+            <with-param name="stock_level" query-param="stock_level"/>
+            <with-param name="location" query-param="location"/>
+        </call-query>
+    </resource>
+    <resource method="PUT" path="/update">
+        <call-query href="updateStock">
+            <with-param name="product_id" query-param="product_id"/>
+            <with-param name="change" query-param="change"/>
+            <with-param name="location" query-param="location"/>
+        </call-query>
+    </resource>
+    <resource method="GET" path="/list">
+        <call-query href="getStock">
+            <with-param name="product_ids" query-param="product_ids"/>
+        </call-query>
+    </resource>
+</data>

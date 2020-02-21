@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="stock-management-system-v1-file-processing-sequence" onError="stock-management-system-v1-fault-sequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log>
+        <property name="sequence name" value="stock-management-system-v1-file-processing-sequence"/>
+        <property name="message" value="pass file content to the database"/>
+    </log>
+    <xslt key="conf:xslt/stock-management-system-v1-update-file-content.xslt"/>
+    <property name="SOAPAction" scope="transport" type="STRING" value="urn:_put_update"/>
+    <sequence key="stock-management-system-v1-call-dss-service-sequence"/>
+</sequence>

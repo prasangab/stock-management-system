@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="stock-management-system-v1-fault-sequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property name="HTTP_SC" scope="axis2" type="STRING" value="500"/>
+    <payloadFactory media-type="json">
+        <format>{ "message": "Error occurred in mediation flow" }</format>
+        <args/>
+    </payloadFactory>
+    <respond/>
+</sequence>

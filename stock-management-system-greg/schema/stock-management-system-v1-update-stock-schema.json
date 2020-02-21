@@ -1,0 +1,46 @@
+{  
+   "$schema":"http://json-schema.org/draft-04/schema#",
+   "definitions":{  
+      "Integer":{  
+         "type":"integer"
+      },
+      "locationType":{  
+         "enum":[  
+            "store",
+            "storage"
+         ]
+      },
+      "item":{  
+         "type":"object",
+         "properties":{  
+            "ProductID":{  
+               "type":"string"
+            },
+            "StockChange":{  
+               "type":"object",
+               "properties":{  
+                  "Change":{  
+                     "$ref":"#/definitions/Integer"
+                  },
+                  "Location":{  
+                     "$ref":"#/definitions/locationType"
+                  }
+               },
+               "required":[  
+                  "Change",
+                  "Location"
+               ]
+            }
+         },
+         "required":[  
+            "ProductID",
+            "StockChange"
+         ]
+      }
+   },
+   "type":"array",
+   "minItems": 1,
+   "items":{  
+      "$ref":"#/definitions/item"
+   }
+}

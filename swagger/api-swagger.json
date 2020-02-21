@@ -1,0 +1,293 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API for stock-managemet-system",
+    "version": "v1.0",
+    "title": "stock-managemet-system"
+  },
+  "host": "localhost:9443",
+  "basePath": "/stock",
+  "tags": [
+    {
+      "name": "stock management",
+      "description": "Insert, Update and List stock data."
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/list": {
+      "get": {
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Conmma separated product ids",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successfull",
+            "schema": {
+                "$ref": "#/definitions/GetStockResponse"
+            }
+          },
+          "400": {
+            "description": "Incorrect Response"
+          },
+          "401": {
+            "description": "Authorization credential is missing or invalid"
+          },
+          "403": {
+            "description": "Access is not configured for this resource"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "422": {
+            "description": "Business error"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "x-auth-type": "Application & Application User",
+        "x-throttling-tier": "Unlimited",
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/add": {
+      "post": {
+        "parameters": [
+          {
+            "name": "stock",
+            "description": "stock",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/SetStock"
+                }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successfull",
+            "schema": {
+                "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "400": {
+            "description": "Incorrect Response"
+          },
+          "401": {
+            "description": "Authorization credential is missing or invalid"
+          },
+          "403": {
+            "description": "Access is not configured for this resource"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "422": {
+            "description": "Business error"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "x-auth-type": "Application & Application User",
+        "x-throttling-tier": "Unlimited"
+      }
+  },
+  "/update": {
+      "put": {
+        "parameters": [
+            {
+            "name": "stock",
+            "description": "stock",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdateStock"
+             
+                }
+            }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successfull",
+            "schema": {
+                "$ref": "#/definitions/SuccessResponse"
+            }
+          },
+          "400": {
+            "description": "Incorrect Response"
+          },
+          "401": {
+            "description": "Authorization credential is missing or invalid"
+          },
+          "403": {
+            "description": "Access is not configured for this resource"
+          },
+          "404": {
+            "description": "Resource not found"
+          },
+          "422": {
+            "description": "Business error"
+          },
+          "500": {
+            "description": "Internal error"
+          }
+        },
+        "x-auth-type": "Application & Application User",
+        "x-throttling-tier": "Unlimited"
+    }
+  }
+},
+"definitions": {
+    "SetStock": {
+        "type": "array",
+        "description": "stock information",
+        "items": {
+            "type": "object",
+            "description": "stock",
+            "required": [
+                "ProductID",
+                "Stock"
+            ],
+            "properties": {
+                "ProductID": {
+                    "type": "string",
+                    "description": "Product ID"
+                },
+                "ProductName": {
+                    "type": "string",
+                    "description": "Product Name"
+                },
+                "Stock": {
+                    "type": "object",
+                    "description": "Stock amount and location",
+                    "required": [
+                        "Amount",
+                        "Location"
+                    ],
+                    "properties": {
+                        "Amount": {
+                            "type": "integer",
+                            "description": "stock level"
+                        },
+                        "Location": {
+                            "type": "string",
+                            "description": "stock location"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "UpdateStock": {
+        "type": "array",
+        "description": "stock information",
+        "items": {
+            "type": "object",
+            "description": "stock",
+            "required": [
+                "ProductID",
+                "StockChange"
+            ],
+            "properties": {
+                "ProductID": {
+                    "type": "string",
+                    "description": "Product ID"
+                },
+                "StockChange": {
+                    "type": "object",
+                    "description": "Stock change level",
+                    "required": [
+                        "Change",
+                        "Location"
+                    ],
+                    "properties": {
+                        "Change": {
+                            "type": "integer",
+                            "description": "change value in stock"
+                        },
+                        "Location": {
+                            "type": "string",
+                            "description": "stock location"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "GetStockResponse": {
+        "type": "array",
+        "description": "stock information",
+        "items": {
+            "type": "object",
+            "description": "stock",
+            "required": [
+                "ProductID",
+                "Stock"
+            ],
+            "properties": {
+                "ProductID": {
+                    "type": "string",
+                    "description": "Product ID"
+                },
+                "ProductName": {
+                    "type": "string",
+                    "description": "Product Name"
+                },
+                "Stock": {
+                    "type": "object",
+                    "description": "Stock amount and location",
+                    "required": [
+                        "Amount",
+                        "Location"
+                    ],
+                    "properties": {
+                        "Amount": {
+                            "type": "integer",
+                            "description": "stock level"
+                        },
+                        "Location": {
+                            "type": "string",
+                            "description": "stock location"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "SuccessResponse": {
+        "type": "object",
+        "description": "Result of stock create and update",
+        "properties": {
+            "success": {
+                "type": "string",
+                "example": "true",
+                "description": "Status"
+            }
+        }
+
+    }
+},
+"x-wso2-security": {
+    "apim": {
+        "x-wso2-scopes": [{
+            "name": "modify_data",
+            "description": "",
+            "key": "modify_data",
+            "roles": "manager"
+        }]
+    }
+}
+}

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="stock-management-system-v1-get-stock-sequence" onError="stock-management-system-v1-fault-sequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log>
+        <property name="sequence name" value="invoking stock-management-system-v1-get-stock-sequence"/>
+    </log>
+    <filter regex="false" source="boolean($url:ids)">
+        <then>
+            <log>
+                <property name="inside filter" value="no ids provided"/>
+            </log>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:_get_list xmlns:p="http://ws.wso2.org/dataservice"/>
+                </format>
+                <args/>
+            </payloadFactory>
+        </then>
+        <else>
+            <log>
+                <property name="inside filter" value="ids provided"/>
+                <property expression="$url:ids" name="testing ids"/>
+            </log>
+            <property expression="$url:ids" name="ids" scope="default" type="STRING"/>
+            <payloadFactory media-type="xml">
+                <format>
+                    <p:_get_list xmlns:p="http://ws.wso2.org/dataservice">
+                        <xs:product_ids xmlns:xs="http://ws.wso2.org/dataservice">$1</xs:product_ids>
+                    </p:_get_list>
+                </format>
+                <args>
+                    <arg evaluator="xml" expression="$url:ids"/>
+                </args>
+            </payloadFactory>
+        </else>
+    </filter>
+    <property name="SOAPAction" scope="transport" type="STRING" value="urn:_get_list"/>
+    <sequence key="stock-management-system-v1-call-dss-service-sequence"/>
+    <log level="full">
+        <property expression="$axis2:HTTP_SC" name="response code: "/>
+    </log>
+    <filter regex="200" source="$axis2:HTTP_SC">
+        <then>
+            <log>
+                <property name="message" value="get api call successful"/>
+            </log>
+            <xslt key="conf:xslt/stock-management-system-v1-get-stock-response-payload.xslt"/>
+            <log level="full">
+                <property expression="$body/*[1]" name="response body: "/>
+            </log>
+            <property expression="$body/*[1]" name="payload" scope="default" type="STRING"/>
+            <script language="js"><![CDATA[var payload = mc.getProperty("payload");mc.setPayloadJSON(payload);]]></script>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+        </then>
+        <else/>
+    </filter>
+</sequence>

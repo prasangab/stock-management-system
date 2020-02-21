@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="stock-management-system-v1-add-stock-sequence" onError="stock-management-system-v1-fault-sequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log>
+        <property name="sequence name" value="stock-management-system-v1-add-stock-sequence"/>
+    </log>
+    <validate>
+        <schema key="conf:/schema/stock-management-system-v1-set-stock-schema.json"/>
+        <on-fail>
+            <payloadFactory media-type="json">
+                <format>{"Error":"$1"}</format>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:ERROR_MESSAGE"/>
+                </args>
+            </payloadFactory>
+            <property name="HTTP_SC" scope="axis2" type="STRING" value="500"/>
+            <respond/>
+        </on-fail>
+    </validate>
+    <xslt key="conf:xslt/stock-management-system-v1-set-stock-payload.xslt"/>
+    <property name="SOAPAction" scope="transport" type="STRING" value="urn:_post_set"/>
+    <sequence key="stock-management-system-v1-call-dss-service-sequence"/>
+    <filter regex="200" source="$axis2:HTTP_SC">
+        <then>
+            <log>
+                <property name="message" value="add api call successful"/>
+            </log>
+            <payloadFactory media-type="json">
+                <format>{"success":"true"}</format>
+                <args/>
+            </payloadFactory>
+        </then>
+        <else/>
+    </filter>
+</sequence>
