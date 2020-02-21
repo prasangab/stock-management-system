@@ -29,9 +29,11 @@
     </plugins>
   </build>
   <properties>
-  	<author>Prabod Prasanga</author>
-  	<created>02/10/2019</created>
+    <author>Prabod Prasanga</author>
+    <created>02/10/2019</created>
   	<maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.car.deploy.skip>false</maven.car.deploy.skip>
+    <maven.deploy.skip>true</maven.deploy.skip>
   </properties>
 </project>
