@@ -9,8 +9,8 @@
   <name>stock-management-system</name>
   <description>stock-management-system</description>
   <modules>
-    <module>stock-management-system-greg</module>
     <module>stock-management-system-dss</module>
+    <module>stock-management-system-greg</module>
     <module>stock-management-system-esb</module>
     <module>stock-management-system-capp</module>
   </modules>
