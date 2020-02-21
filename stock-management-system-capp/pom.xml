@@ -275,4 +275,11 @@
       </plugin>
     </plugins>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>internal.repo</id>
+      <name>Internal repo</name>
+      <url>file:///home/prabod/projects/wso2/repository</url>
+    </repository>
+  </distributionManagement>
 </project>
